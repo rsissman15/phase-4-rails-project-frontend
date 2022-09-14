@@ -1,8 +1,10 @@
 import React,{useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
+import ActivityCard from './ActivityCard';
+//import Grid from '@mui/material/Grid';
 
 
-const ActivityList = ({loggedIn}) => {
+const ActivityList = ({loggedIn,activities}) => {
     const navigate=useNavigate();
 
     useEffect(()=>{
@@ -12,9 +14,11 @@ const ActivityList = ({loggedIn}) => {
       
      },[loggedIn])
 
+     const activityCards=activities.map(activity=><ActivityCard key={activity.id} activity={activity}/>)
+
   return (
     <div>
-        <h1>Activities</h1>
+          {activityCards}
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react'
 import { baseUrl } from '../Globals'
-//import { header } from '../Globals'
 import { useNavigate } from 'react-router-dom'
 
 const Login = ({logInUser,loggedIn}) => {

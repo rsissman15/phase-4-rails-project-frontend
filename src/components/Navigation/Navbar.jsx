@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Navbar = ({loggedIn,logoutUser}) => {
+const Navbar = ({loggedIn,logoutUser,currentUser}) => {
   const classes = useStyles();
 
   const loggedOutLinks=()=>{
@@ -52,6 +52,9 @@ const Navbar = ({loggedIn,logoutUser}) => {
       <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          <Button>
+            <h3> {currentUser.username}</h3>
+          </Button>
           <Typography variant="h6" className={classes.title}>
              <Link to="/">Homepage</Link>
           </Typography>
