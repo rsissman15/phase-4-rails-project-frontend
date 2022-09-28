@@ -52,9 +52,6 @@ const Navbar = ({loggedIn,logoutUser,currentUser}) => {
       <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Button>
-            <h3> {currentUser.username}</h3>
-          </Button>
           <Typography variant="h6" className={classes.title}>
              <Link to="/">Homepage</Link>
           </Typography>
@@ -63,6 +60,9 @@ const Navbar = ({loggedIn,logoutUser,currentUser}) => {
           </Button>
           <Button color="inherit">
             <Link to="/activities">Activities</Link>
+          </Button>
+          <Button color="inherit">
+            <Link to="/reservations">Rerservations</Link>
           </Button>
         </Toolbar>
       </AppBar>

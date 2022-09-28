@@ -8,12 +8,14 @@ import { useEffect } from 'react'
 import { baseUrl, header, getToken } from '../Globals'
 import ActivityList from '../Activities/ActivityList'
 import Activity from '../Activities/Activity'
+import Rerservation from '../Activities/Reservations/Rerservation'
 
 
 const Maincontainer = () => {
   const [currentUser,setCurrentUser]=useState({})
   const [loggedIn,setLoggedIn]=useState(false)
   const [activities,setActivities]=useState([])
+  const [reservations,setReservations]=useState([])
 
   const logInUser=(user)=>{
     setCurrentUser(user)
@@ -44,6 +46,17 @@ const Maincontainer = () => {
       .then(data=>setActivities(data))
 
     }
+    if(loggedIn){
+      fetch(baseUrl+'/reservations',{
+        headers:{
+          ...header,
+          ...getToken()
+        }
+      })
+      .then(res=>res.json())
+      .then(data=>setReservations(data))
+    }
+    
   },[loggedIn])
 
   const logoutUser=()=>{
@@ -52,17 +65,23 @@ const Maincontainer = () => {
     localStorage.removeItem('jwt')
   }
 
+  const submitReservation=(newReservation)=>{
+    console.log(newReservation)
+    //setReservations([...reservations,newReservation])
+  }
+
 
 
   return (
     <Router>
-        <Navbar loggedIn={loggedIn} logoutUser={logoutUser } currentUser={currentUser}/>
+        <Navbar loggedIn={loggedIn} logoutUser={logoutUser} currentUser={currentUser}/>
         <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/signup" element={<Signup logInUser={logInUser} loggedIn={loggedIn}/>}/>
             <Route path="/login" element={<Login logInUser={logInUser} loggedIn={loggedIn}/>}/>
             <Route path="/activities" element={<ActivityList loggedIn={loggedIn} activities={activities}/>}/>
-            <Route path="/activities/:id" element={<Activity loggedIn={loggedIn} activities={activities}/>}/>
+            <Route path="/activities/:id" element={<Activity loggedIn={loggedIn} activities={activities} submitReservation={submitReservation}/>}/>
+            <Route path="/reservations" element={<Rerservation reservations={reservations}/>}/>
         </Routes>
 
     </Router>

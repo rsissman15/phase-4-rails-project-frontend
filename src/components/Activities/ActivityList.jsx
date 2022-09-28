@@ -5,16 +5,17 @@ import ActivityCard from './ActivityCard';
 
 
 const ActivityList = ({loggedIn,activities}) => {
-    const navigate=useNavigate();
+    
+  const navigate=useNavigate();
 
-    useEffect(()=>{
-      if(!loggedIn){
-          navigate('/login')
-      }
-      
-     },[loggedIn])
+  useEffect(()=>{
+    if(!loggedIn){
+      navigate('/login')
+    }
+  },[loggedIn])
 
-     const activityCards=activities.map(activity=><ActivityCard key={activity.id} activity={activity}/>)
+  const activityCards=activities.map(activity=><ActivityCard key={activity.id} activity={activity}/>)
+  
 
   return (
     <div>
