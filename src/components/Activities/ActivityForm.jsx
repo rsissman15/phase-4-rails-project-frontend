@@ -8,30 +8,23 @@ const ActivityForm = ({activities,submitReservation}) => {
     let activityid=a.id
  
     const [date,setDate]=useState({
-        date:'',
-        activity_id:activityid
+        date:"",
+
       })
 
-    
 
-     
-
-  
-
-    
       function handleChange(e){
-        setDate(e.target.value)
+        setDate({date:e.target.value})
       }
     
       function handleSubmit(e){
         e.preventDefault();
-        const addReservation={...date}
         fetch(`http://localhost:3001/activities/${activityid}/reservations`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(addReservation)
+          body: JSON.stringify(date)
         })
           .then(resp => resp.json())
           .then(data => submitReservation(data))

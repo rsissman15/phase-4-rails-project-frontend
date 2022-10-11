@@ -49,7 +49,8 @@ const Login = ({logInUser,loggedIn}) => {
 
     useEffect(()=>{
       if(loggedIn){
-          navigate('/activities')
+        navigate('/activities')
+       
       }
       
      },[loggedIn])
@@ -77,6 +78,7 @@ const Login = ({logInUser,loggedIn}) => {
             .then(data=>{
                 logInUser(data.user)
                 localStorage.setItem('jwt', data.token)
+                console.log(data.token)
                 navigate('/activities') 
             })
         

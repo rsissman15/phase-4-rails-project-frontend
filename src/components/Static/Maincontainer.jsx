@@ -33,7 +33,7 @@ const Maincontainer = () => {
         }
       })
       .then(res=>res.json())
-      .then(user=>logInUser(user))
+      .then(user=>{logInUser(user)})
     }
     if(loggedIn){
       fetch(baseUrl+'/activities',{
@@ -66,7 +66,7 @@ const Maincontainer = () => {
   }
 
   const submitReservation=(newReservation)=>{
-    console.log(newReservation)
+    console.log("Hi")
     //setReservations([...reservations,newReservation])
   }
 
