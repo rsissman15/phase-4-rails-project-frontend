@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import { useParams } from 'react-router-dom'
+import {header, getToken } from '../Globals'
 
 const ActivityForm = ({activities,submitReservation}) => {
     const { id }=useParams();
@@ -22,7 +23,10 @@ const ActivityForm = ({activities,submitReservation}) => {
         fetch(`http://localhost:3001/activities/${activityid}/reservations`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            ...header,
+            ...getToken()
+
+
           },
           body: JSON.stringify(date)
         })

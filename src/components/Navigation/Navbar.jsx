@@ -33,7 +33,7 @@ const Navbar = ({loggedIn,logoutUser,currentUser}) => {
             <Link to="/login">Login</Link>
           </Button>
           <Button color="inherit">
-            <Link to="/signup">Singup</Link>
+            <Link to="/signup">Signup</Link>
           </Button>
         </Toolbar>
       </AppBar>

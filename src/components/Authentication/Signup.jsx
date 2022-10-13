@@ -77,6 +77,7 @@ const Signup = ({logInUser,loggedIn}) => {
             .then(res=>res.json())
             .then(data=>{
                 logInUser(data.user)
+                console.log(data)
                 localStorage.setItem('jwt', data.token)
                 navigate('/activities')
             })
