@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import { baseUrl, header, getToken } from '../Globals'
 import ActivityList from '../Activities/ActivityList'
 import Activity from '../Activities/Activity'
-import ReservationTable from '../Activities/Reservations/ReservationTable'
+import ReservationsList from '../Activities/Reservations/ReservationsList'
 
 
 
@@ -92,7 +92,7 @@ const Maincontainer = () => {
             <Route path="/login" element={<Login logInUser={logInUser} loggedIn={loggedIn}/>}/>
             <Route path="/activities" element={<ActivityList loggedIn={loggedIn} activities={activities}/>}/>
             <Route path="/activities/:id" element={<Activity loggedIn={loggedIn} activities={activities} submitReservation={submitReservation}/>}/>
-            <Route path="/reservations" element={<ReservationTable reservations={reservations} handleDelete={handleDelete}/>}/>
+            <Route path="/reservations" element={<ReservationsList reservations={reservations} handleDelete={handleDelete}/>}/>
         </Routes>
 
     </Router>
