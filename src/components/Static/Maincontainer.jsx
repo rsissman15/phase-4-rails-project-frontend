@@ -67,10 +67,20 @@ const Maincontainer = () => {
   }
 
   const submitReservation=(newReservation)=>{
-    console.log("Hi")
     setReservations([...reservations,newReservation])
   }
 
+  function handleDelete(reservation){
+    fetch(baseUrl+`/reservations/${reservation.id}`,{
+      method:'DELETE',
+      headers:{
+        ...getToken()
+      }
+    })
+    .then(()=>{
+      setReservations(reservations.filter(currentReservation=>currentReservation.id !== reservation.id))
+    })
+  }
 
 
   return (
@@ -82,7 +92,7 @@ const Maincontainer = () => {
             <Route path="/login" element={<Login logInUser={logInUser} loggedIn={loggedIn}/>}/>
             <Route path="/activities" element={<ActivityList loggedIn={loggedIn} activities={activities}/>}/>
             <Route path="/activities/:id" element={<Activity loggedIn={loggedIn} activities={activities} submitReservation={submitReservation}/>}/>
-            <Route path="/reservations" element={<ReservationTable reservations={reservations}/>}/>
+            <Route path="/reservations" element={<ReservationTable reservations={reservations} handleDelete={handleDelete}/>}/>
         </Routes>
 
     </Router>

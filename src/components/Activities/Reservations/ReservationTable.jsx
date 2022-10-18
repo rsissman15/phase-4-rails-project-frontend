@@ -10,15 +10,18 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 
+
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
 });
 
-const ReservationTable = ({reservations}) => {
+const ReservationTable = ({reservations,handleDelete}) => {
   const classes = useStyles();
   const rows=reservations
+
   
 
   
@@ -41,7 +44,7 @@ const ReservationTable = ({reservations}) => {
                 {row.date}
               </TableCell>
                <TableCell>
-                 <Button variant="contained" color="primary" >Delete</Button>
+                 <Button variant="contained" color="primary" onClick={()=>handleDelete(row)}>Delete</Button>
                </TableCell>
                <TableCell>
                  <Button variant="contained" color="primary">Update Date</Button> 
