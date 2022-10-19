@@ -82,6 +82,20 @@ const Maincontainer = () => {
     })
   }
 
+ 
+  function handleUpdateDate(reservation){
+    const updatedDate = reservations.map((oldReservation) => {
+      return oldReservation.id === reservation.id ? reservation : oldReservation;
+    });
+    setReservations(updatedDate)
+  }
+
+  useEffect(() => {
+    handleUpdateDate();
+  },[])
+
+
+
 
   return (
     <Router>
@@ -92,7 +106,7 @@ const Maincontainer = () => {
             <Route path="/login" element={<Login logInUser={logInUser} loggedIn={loggedIn}/>}/>
             <Route path="/activities" element={<ActivityList loggedIn={loggedIn} activities={activities}/>}/>
             <Route path="/activities/:id" element={<Activity loggedIn={loggedIn} activities={activities} submitReservation={submitReservation}/>}/>
-            <Route path="/reservations" element={<ReservationsList reservations={reservations} handleDelete={handleDelete}/>}/>
+            <Route path="/reservations" element={<ReservationsList reservations={reservations} handleDelete={handleDelete}  handleUpdateDate={handleUpdateDate}/>}/>
         </Routes>
 
     </Router>

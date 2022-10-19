@@ -1,38 +1,35 @@
-import React from 'react'
+import React,{useState} from 'react'
+import { baseUrl, getToken, header } from '../../Globals'
+import { useNavigate } from 'react-router-dom'
 // import { useParams } from 'react-router-dom'
 // import {header, getToken } from '../Globals'
 
-const ReservationForm = ({activities,submitReservation}) => {
-    // const { id }=useParams();
-
-    // let a=activities.find(a=>a.id.toString()===id)
-    // let activityid=a.id
- 
-    // const [date,setDate]=useState({
-    //     date:"",
-
-    //   })
+const ReservationForm = ({reservation,handleUpdateDate}) => {
+    const [date,setDate]=useState({date:"",})
+    const navigate=useNavigate();
 
 
-    //   function handleChange(e){
-    //     setDate({date:e.target.value})
-    //   }
-    
-    //   function handleSubmit(e){
-    //     e.preventDefault();
-    //     fetch(`http://localhost:3001/activities/${activityid}/reservations`, {
-    //       method: "POST",
-    //       headers: {
-    //         ...header,
-    //         ...getToken()
+   function handleChange(e){
+    setDate(e.target.value)
+   }
 
+   function handleUpdate(){
+    fetch(baseUrl+`/reservations/${reservation.id}`,{
+        method:'PATCH',
+        headers:{
+            ...header,
+            ...getToken()
+        },
+        body:JSON.stringify({'date':date})
 
-    //       },
-    //       body: JSON.stringify(date)
-    //     })
-    //       .then(resp => resp.json())
-    //       .then(data => submitReservation(data))
-    //   }
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      handleUpdateDate(data.date)
+      alert("Date has been updated")
+
+    })
+   }
     
       return (
         <div className="container">
@@ -41,12 +38,14 @@ const ReservationForm = ({activities,submitReservation}) => {
             <input
               type="date"
               name="date"
+              onChange={handleChange}
             />
             <input
                 type="submit"
                 name="submit"
                 value="Update Date"
                 className="submit"
+                onClick={handleUpdate}
             />
           </form>
         </div>
