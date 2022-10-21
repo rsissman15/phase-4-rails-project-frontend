@@ -1,17 +1,21 @@
 import React,{useState} from 'react'
 import { baseUrl, getToken, header } from '../../Globals'
-import { useNavigate } from 'react-router-dom'
+
+
 // import { useParams } from 'react-router-dom'
 // import {header, getToken } from '../Globals'
 
 const ReservationForm = ({reservation,handleUpdateDate}) => {
     const [date,setDate]=useState({date:"",})
-    const navigate=useNavigate();
+
+    
 
 
    function handleChange(e){
     setDate(e.target.value)
    }
+
+
 
    function handleUpdate(){
     fetch(baseUrl+`/reservations/${reservation.id}`,{
@@ -21,13 +25,10 @@ const ReservationForm = ({reservation,handleUpdateDate}) => {
             ...getToken()
         },
         body:JSON.stringify({'date':date})
-
     })
     .then(res=>res.json())
     .then(data=>{
       handleUpdateDate(data.date)
-      alert("Date has been updated")
-
     })
    }
     

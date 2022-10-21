@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { baseUrl } from '../Globals'
 import { useNavigate } from 'react-router-dom'
+import Errors from '../../Styles.js/Errors'
 
 const Login = ({logInUser,loggedIn}) => {
     const formContStyle = {
@@ -45,12 +46,12 @@ const Login = ({logInUser,loggedIn}) => {
 
     const [username,setUsername]=useState('')
     const[password,setPassword]=useState('')
+    const [errors,setErrors]=useState('')
     const navigate=useNavigate();
 
     useEffect(()=>{
       if(loggedIn){
         navigate('/activities')
-       
       }
       
      },[loggedIn])
@@ -74,14 +75,19 @@ const Login = ({logInUser,loggedIn}) => {
               },
             body:JSON.stringify(strongParams)
         })
-            .then(res=>res.json())
-            .then(data=>{
-                logInUser(data.user)
-                localStorage.setItem('jwt', data.token)
-                console.log(data.token)
-                navigate('/activities') 
-            })
-        
+            //.then(res=>res.json())
+
+            .then((response) => {
+              if (response.ok) {
+                  response.json().then((data) =>{
+                    logInUser(data.user)
+                    localStorage.setItem('jwt', data.token)
+                  });
+              } 
+              else {
+                    response.json().then((errorData) =>  setErrors(errorData.errors));
+              }
+          })
     }
 
     
@@ -96,6 +102,9 @@ const Login = ({logInUser,loggedIn}) => {
                 <label>Password</label><br></br>
                 <input style={inputStyle} autoComplete="current-password" type="password" id="password" name="password" value={password} onChange={e=>setPassword(e.target.value)}></input><br></br>
                 <button style={postButton} type="submit">Log In</button>
+                <h1>
+                     <Errors>{errors}</Errors>
+                </h1>
            </form>
 
     </div>

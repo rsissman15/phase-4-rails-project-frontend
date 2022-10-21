@@ -23,6 +23,7 @@ const Maincontainer = () => {
     setLoggedIn(true)
   }
 
+
   useEffect(()=>{
     const token=localStorage.getItem('jwt')
     if(token && !loggedIn){
@@ -34,7 +35,8 @@ const Maincontainer = () => {
         }
       })
       .then(res=>res.json())
-      .then(user=>{logInUser(user)})
+      .then(user=>logInUser(user)
+)
     }
     if(loggedIn){
       fetch(baseUrl+'/activities',{
@@ -48,23 +50,33 @@ const Maincontainer = () => {
 
     }
     if(loggedIn){
-      fetch(baseUrl+'/reservations',{
+      //fetch(baseUrl+`/users/${currentUser.id}/reservations`,{
+      fetch(baseUrl+`/users/${currentUser.id}`,{
         headers:{
           ...header,
           ...getToken()
         }
       })
       .then(res=>res.json())
-      .then(data=>setReservations(data))
+      .then(data=>{
+        //console.log(data.reservations)
+        setReservations(data.reservations)
+      })
     }
+ 
     
   },[loggedIn])
+
 
   const logoutUser=()=>{
     setCurrentUser({})
     setLoggedIn(false)
     localStorage.removeItem('jwt')
+
   }
+
+
+ 
 
   const submitReservation=(newReservation)=>{
     setReservations([...reservations,newReservation])
@@ -82,20 +94,15 @@ const Maincontainer = () => {
     })
   }
 
- 
   function handleUpdateDate(reservation){
-    const updatedDate = reservations.map((oldReservation) => {
-      return oldReservation.id === reservation.id ? reservation : oldReservation;
-    });
-    setReservations(updatedDate)
+
+    setReservations(
+      reservations.map((oldReservation) =>
+        oldReservation.id !== reservation.id ? oldReservation : { ...oldReservation, date: oldReservation.date}
+      )
+    )
+
   }
-
-  useEffect(() => {
-    handleUpdateDate();
-  },[])
-
-
-
 
   return (
     <Router>
@@ -106,7 +113,7 @@ const Maincontainer = () => {
             <Route path="/login" element={<Login logInUser={logInUser} loggedIn={loggedIn}/>}/>
             <Route path="/activities" element={<ActivityList loggedIn={loggedIn} activities={activities}/>}/>
             <Route path="/activities/:id" element={<Activity loggedIn={loggedIn} activities={activities} submitReservation={submitReservation}/>}/>
-            <Route path="/reservations" element={<ReservationsList reservations={reservations} handleDelete={handleDelete}  handleUpdateDate={handleUpdateDate}/>}/>
+            <Route path="/reservations" element={<ReservationsList reservations={reservations} handleDelete={handleDelete}  handleUpdateDate={handleUpdateDate} loggedIn={loggedIn}/>}/>
         </Routes>
 
     </Router>

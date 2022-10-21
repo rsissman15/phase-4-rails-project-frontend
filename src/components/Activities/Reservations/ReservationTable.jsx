@@ -36,9 +36,6 @@ const ReservationTable = ({reservation,handleDelete,handleUpdateDate}) => {
         <TableBody>
             <TableRow key={reservation.id}>
               <TableCell align="center" component="th" scope="row">
-                {reservation.activity.name}
-              </TableCell>
-              <TableCell align="center" component="th" scope="row">
                 {reservation.date}
               </TableCell>
                <TableCell>

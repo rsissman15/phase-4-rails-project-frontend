@@ -1,7 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import { baseUrl } from '../Globals'
-//import { header } from '../Globals'
+import { header, getToken } from '../Globals'
 import { useNavigate } from 'react-router-dom'
+import FormField from '../../Styles.js/FormField'
+import Errors from '../../Styles.js/Errors'
 
 const Signup = ({logInUser,loggedIn}) => {
     const formContStyle = {
@@ -46,6 +48,7 @@ const Signup = ({logInUser,loggedIn}) => {
 
     const [username,setUsername]=useState('')
     const[password,setPassword]=useState('')
+    const [errors, setErrors] = useState([]);
     const navigate=useNavigate();
 
    useEffect(()=>{
@@ -69,19 +72,23 @@ const Signup = ({logInUser,loggedIn}) => {
         fetch(baseUrl+'/users',{
             method:'POST',
             headers: {
-                "Accept":"application/json",
-                "Content-Type":'application/json'
+                ...header,
+                ...getToken()
               },
             body:JSON.stringify(strongParams)
         })
-            .then(res=>res.json())
-            .then(data=>{
-                logInUser(data.user)
-                console.log(data)
-                localStorage.setItem('jwt', data.token)
-                navigate('/activities')
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then((data) =>{
+                        logInUser(data.user)
+                        localStorage.setItem('jwt', data.token)
+                        navigate('/activities')       
+                    });
+                } 
+                else {
+                      response.json().then((errorData) =>  setErrors(errorData.errors));
+                }
             })
-        
     }
 
     
@@ -91,11 +98,18 @@ const Signup = ({logInUser,loggedIn}) => {
         <h2>Create Account</h2>
            <form onSubmit={handleSubmit}>
                <br></br>
-               <label>Username</label><br></br>
-                <input style={inputStyle} autoComplete="username" type="text" id="username" name="username" value={username} onChange={e=>setUsername(e.target.value)}></input><br></br>
+               <FormField>
+                    <label>Username</label><br></br>
+                    <input style={inputStyle} autoComplete="username" type="text" id="username" name="username" value={username} onChange={e=>setUsername(e.target.value)}></input><br></br>
+               </FormField>
                 <label>Password</label><br></br>
                 <input style={inputStyle} autoComplete="current-password" type="password" id="password" name="password" value={password} onChange={e=>setPassword(e.target.value)}></input><br></br>
                 <button style={postButton} type="submit">Create Account</button>
+                <h1>
+                     {errors.map((err) => (
+                        <Errors key={err}>{err}</Errors>
+                    ))}
+                </h1>
            </form>
 
     </div>
