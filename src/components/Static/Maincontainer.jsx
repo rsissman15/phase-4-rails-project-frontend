@@ -50,8 +50,7 @@ const Maincontainer = () => {
 
     }
     if(loggedIn){
-      //fetch(baseUrl+`/users/${currentUser.id}/reservations`,{
-      fetch(baseUrl+`/users/${currentUser.id}`,{
+      fetch(baseUrl+`/users/${currentUser.id}/reservations`,{
         headers:{
           ...header,
           ...getToken()
@@ -59,8 +58,8 @@ const Maincontainer = () => {
       })
       .then(res=>res.json())
       .then(data=>{
-        //console.log(data.reservations)
-        setReservations(data.reservations)
+        setReservations(data)
+       
       })
     }
  
@@ -95,13 +94,7 @@ const Maincontainer = () => {
   }
 
   function handleUpdateDate(reservation){
-
-    setReservations(
-      reservations.map((oldReservation) =>
-        oldReservation.id !== reservation.id ? oldReservation : { ...oldReservation, date: oldReservation.date}
-      )
-    )
-
+    setReservations(reservations.map((oldReservation) => oldReservation.id !== reservation.id ? oldReservation : { ...oldReservation, date: reservation.date}))
   }
 
   return (
@@ -113,7 +106,7 @@ const Maincontainer = () => {
             <Route path="/login" element={<Login logInUser={logInUser} loggedIn={loggedIn}/>}/>
             <Route path="/activities" element={<ActivityList loggedIn={loggedIn} activities={activities}/>}/>
             <Route path="/activities/:id" element={<Activity loggedIn={loggedIn} activities={activities} submitReservation={submitReservation}/>}/>
-            <Route path="/reservations" element={<ReservationsList reservations={reservations} handleDelete={handleDelete}  handleUpdateDate={handleUpdateDate} loggedIn={loggedIn}/>}/>
+            <Route path="/reservations" element={<ReservationsList reservations={reservations} handleDelete={handleDelete} handleUpdateDate={handleUpdateDate} currentUser={currentUser} loggedIn={loggedIn}/>}/>
         </Routes>
 
     </Router>

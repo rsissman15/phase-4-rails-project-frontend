@@ -31,7 +31,9 @@ const ActivityForm = ({activities,submitReservation}) => {
           body: JSON.stringify(date)
         })
           .then(resp => resp.json())
-          .then(data => submitReservation(data))
+          .then(data => {
+            submitReservation(data)
+          })
       }
     
       return (

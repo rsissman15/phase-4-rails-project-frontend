@@ -3,7 +3,7 @@ import React,{useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import ReservationTable from './ReservationTable'
 
-const ReservationsList = ({reservations,handleDelete, handleUpdateDate,loggedIn}) => {
+const ReservationsList = ({reservations,handleDelete, handleUpdateDate,loggedIn, currentUser}) => {
 
   const navigate=useNavigate()
 
@@ -13,13 +13,12 @@ const ReservationsList = ({reservations,handleDelete, handleUpdateDate,loggedIn}
     }
   },[loggedIn])
   
-  const renderReservations=reservations.map(reservation => <ReservationTable key={reservation.id} reservation={reservation} handleDelete={handleDelete} handleUpdateDate={handleUpdateDate}/>)
+  const renderReservations=reservations.map(reservation => <ReservationTable key={reservation.id} reservation={reservation} handleDelete={handleDelete} handleUpdateDate={handleUpdateDate} currentUser={currentUser}/>)
 
   return (
     <div>
-      <li>
+      <h1>Reservations</h1>
         {renderReservations}
-      </li>
       
     </div>
     )

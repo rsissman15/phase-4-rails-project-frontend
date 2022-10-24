@@ -2,6 +2,8 @@ import React,{useState,useEffect} from 'react'
 import { baseUrl } from '../Globals'
 import { useNavigate } from 'react-router-dom'
 import Errors from '../../Styles.js/Errors'
+import { FormControlLabel } from '@material-ui/core'
+import FormField from '../../Styles.js/FormField'
 
 const Login = ({logInUser,loggedIn}) => {
     const formContStyle = {
@@ -82,6 +84,7 @@ const Login = ({logInUser,loggedIn}) => {
                   response.json().then((data) =>{
                     logInUser(data.user)
                     localStorage.setItem('jwt', data.token)
+                    navigate('/activities')  
                   });
               } 
               else {
@@ -97,14 +100,18 @@ const Login = ({logInUser,loggedIn}) => {
         <h2>Log In</h2>
            <form onSubmit={handleSubmit}>
                <br></br>
+               <FormField>
                <label>Username</label><br></br>
                 <input style={inputStyle} autoComplete="username" type="text" id="username" name="username" value={username} onChange={e=>setUsername(e.target.value)}></input><br></br>
                 <label>Password</label><br></br>
                 <input style={inputStyle} autoComplete="current-password" type="password" id="password" name="password" value={password} onChange={e=>setPassword(e.target.value)}></input><br></br>
+                </FormField>
                 <button style={postButton} type="submit">Log In</button>
-                <h1>
-                     <Errors>{errors}</Errors>
-                </h1>
+                  <li>
+                    
+                       {errors}
+
+                 </li>
            </form>
 
     </div>

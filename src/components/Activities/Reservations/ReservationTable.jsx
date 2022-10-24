@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ReservationTable = ({reservation,handleDelete,handleUpdateDate}) => {
+const ReservationTable = ({reservation,handleDelete,handleUpdateDate,currentUser,loggedIn}) => {
   const classes = useStyles();
   const[showForm,setShowForm]=useState(false)
   
@@ -26,6 +26,7 @@ const ReservationTable = ({reservation,handleDelete,handleUpdateDate}) => {
   const handleClick=()=>{
     setShowForm(click=>!click)
   }
+  
 
 
 
@@ -42,7 +43,7 @@ const ReservationTable = ({reservation,handleDelete,handleUpdateDate}) => {
                  <Button variant="contained" color="primary" onClick={()=>handleDelete(reservation)}>Delete</Button>
                </TableCell>
                <TableCell>
-               {showForm ? <ReservationForm reservation={reservation} handleUpdateDate={handleUpdateDate}/> : null}
+               {showForm ? <ReservationForm reservation={reservation} handleUpdateDate={handleUpdateDate} currentUser={currentUser} loggedIn={loggedIn}/> : null}
                   <Button onClick={()=>handleClick(reservation)}> {showForm ? null : 'Update Date'}</Button>
                </TableCell>
              </TableRow>

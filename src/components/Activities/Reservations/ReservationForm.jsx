@@ -1,15 +1,20 @@
 import React,{useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import { baseUrl, getToken, header } from '../../Globals'
 
 
 // import { useParams } from 'react-router-dom'
 // import {header, getToken } from '../Globals'
 
-const ReservationForm = ({reservation,handleUpdateDate}) => {
-    const [date,setDate]=useState({date:"",})
+const ReservationForm = ({handleUpdateDate,reservation}) => {
 
-    
+   const [date,setDate]=useState({
+        date:""
 
+      })
+    const navigate=useNavigate()
+
+  
 
    function handleChange(e){
     setDate(e.target.value)
@@ -17,37 +22,36 @@ const ReservationForm = ({reservation,handleUpdateDate}) => {
 
 
 
-   function handleUpdate(){
+
+
+   function handleSubmit(e){
+    e.preventDefault()
     fetch(baseUrl+`/reservations/${reservation.id}`,{
         method:'PATCH',
         headers:{
             ...header,
             ...getToken()
         },
-        body:JSON.stringify({'date':date})
+        body:JSON.stringify({date: date})
     })
     .then(res=>res.json())
     .then(data=>{
-      handleUpdateDate(data.date)
+      handleUpdateDate(data)
+      navigate('/activities')
+      
     })
    }
     
       return (
         <div className="container">
-          <form className="add-activity-form">
+          <form className="add-activity-form" onSubmit={handleSubmit}>
             <h3>Select a Date</h3>
             <input
               type="date"
-              name="date"
               onChange={handleChange}
+              value={date}
             />
-            <input
-                type="submit"
-                name="submit"
-                value="Update Date"
-                className="submit"
-                onClick={handleUpdate}
-            />
+            <button type="submit">Update Reservation</button>
           </form>
         </div>
       )

@@ -86,7 +86,7 @@ const Signup = ({logInUser,loggedIn}) => {
                     });
                 } 
                 else {
-                      response.json().then((errorData) =>  setErrors(errorData.errors));
+                    response.json().then((errorData) =>  setErrors(errorData.errors));
                 }
             })
     }
