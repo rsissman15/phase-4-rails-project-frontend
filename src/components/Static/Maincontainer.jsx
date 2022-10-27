@@ -58,6 +58,7 @@ const Maincontainer = () => {
       })
       .then(res=>res.json())
       .then(data=>{
+        console.log(data)
         setReservations(data)
        
       })

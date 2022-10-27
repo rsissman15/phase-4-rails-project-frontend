@@ -41,7 +41,7 @@ const ActivityCard = ({activity}) => {
             <Typography gutterBottom variant="h3" component="h1">
             {activity.name}
             </Typography>
-            <Button onClick={()=>navigate(`/activities/${activity.id}`)}>Click for More Info</Button>
+            <Button onClick={()=>navigate(`/activities/${activity.id}`)} color="primary">Click for More Info</Button>
           </CardContent>
         </CardActionArea>
       </Card> 

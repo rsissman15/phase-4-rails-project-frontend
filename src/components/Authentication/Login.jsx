@@ -107,11 +107,9 @@ const Login = ({logInUser,loggedIn}) => {
                 <input style={inputStyle} autoComplete="current-password" type="password" id="password" name="password" value={password} onChange={e=>setPassword(e.target.value)}></input><br></br>
                 </FormField>
                 <button style={postButton} type="submit">Log In</button>
-                  <li>
-                    
-                       {errors}
-
-                 </li>
+                <h1>
+                   {errors ? <Errors>{errors}</Errors>: null}  
+                </h1>
            </form>
 
     </div>

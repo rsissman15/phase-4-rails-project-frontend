@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import ActivityCard from './ActivityCard';
-//import Grid from '@mui/material/Grid';
+import Grid from '@material-ui/core/Grid';
 
 
 const ActivityList = ({loggedIn,activities}) => {
@@ -18,9 +18,9 @@ const ActivityList = ({loggedIn,activities}) => {
   
 
   return (
-    <div>
-          {activityCards}
-    </div>
+    <Grid container>
+      {activityCards}
+    </Grid>
   )
 }
 

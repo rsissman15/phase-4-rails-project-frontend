@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import Errors from '../../../Styles.js/Errors'
 import { baseUrl, getToken, header } from '../../Globals'
 
 
@@ -10,9 +11,12 @@ const ReservationForm = ({handleUpdateDate,reservation}) => {
 
    const [date,setDate]=useState({
         date:""
+     })
 
-      })
+    const [errors,setErrors]=useState('')    
     const navigate=useNavigate()
+
+
 
   
 
@@ -33,13 +37,26 @@ const ReservationForm = ({handleUpdateDate,reservation}) => {
             ...getToken()
         },
         body:JSON.stringify({date: date})
+    }) .then((response) => {
+      if (response.ok) {
+          response.json().then((data) =>{
+            handleUpdateDate(data)
+            navigate('/activities')
+
+          });
+      } 
+      else {
+         response.json().then((errorData) =>  setErrors(errorData.errors))
+        
+      }
     })
-    .then(res=>res.json())
-    .then(data=>{
-      handleUpdateDate(data)
-      navigate('/activities')
+    // .then(res=>res.json())
+    // .then(data=>{
       
-    })
+    //   handleUpdateDate(data)
+    //   navigate('/activities')
+      
+    // })
    }
     
       return (
@@ -53,6 +70,7 @@ const ReservationForm = ({handleUpdateDate,reservation}) => {
             />
             <button type="submit">Update Reservation</button>
           </form>
+          {errors ? <Errors>{errors}</Errors>: null}
         </div>
       )
 }

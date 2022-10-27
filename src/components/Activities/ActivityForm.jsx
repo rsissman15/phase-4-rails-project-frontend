@@ -1,17 +1,24 @@
 import React,{useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import Errors from '../../Styles.js/Errors';
 import {header, getToken } from '../Globals'
 
 const ActivityForm = ({activities,submitReservation}) => {
     const { id }=useParams();
-
-    let a=activities.find(a=>a.id.toString()===id)
-    let activityid=a.id
  
     const [date,setDate]=useState({
         date:"",
 
       })
+
+    const [errors,setErrors]=useState('')
+
+    const navigate=useNavigate()
+
+     let a=activities.find(a=>a.id.toString()===id)
+     let activityid=a.id
+
+
 
 
       function handleChange(e){
@@ -30,10 +37,23 @@ const ActivityForm = ({activities,submitReservation}) => {
           },
           body: JSON.stringify(date)
         })
-          .then(resp => resp.json())
-          .then(data => {
-            submitReservation(data)
-          })
+        .then((response) => {
+          if (response.ok) {
+              response.json().then((data) =>{
+                submitReservation(data)
+                navigate('/reservations') 
+
+              });
+          } 
+          else {
+             response.json().then((errorData) =>  setErrors(errorData.errors))
+            
+          }
+      })
+          //.then(resp => resp.json())
+          // .then(data => {
+          //   submitReservation(data)
+          // })
       }
     
       return (
@@ -52,6 +72,7 @@ const ActivityForm = ({activities,submitReservation}) => {
                 className="submit"
             />
           </form>
+          {errors ? <Errors>{errors}</Errors>: null}
         </div>
       )
 }
