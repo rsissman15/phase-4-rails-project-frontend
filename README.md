@@ -4,7 +4,7 @@ This is a frontend application for my activity application. The objective of thi
 ### Requirments
 * node version 14.17.5
 * npm version 6.14.14
-* yarn 1.22.11
+
 
 ## Built With
 This project was built with the following:
@@ -13,9 +13,9 @@ This project was built with the following:
 <br />
 
 ### How to use
-Fork and Clone
-Run yarn install
-Run yarn start
+-Fork and Clone
+-Run npm install
+-Run npm start
 Follow directions for backend https://github.com/rsissman15/phase-4-rails-project
 
 ### Licensing (MIT,Optional)
