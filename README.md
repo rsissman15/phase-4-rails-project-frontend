@@ -13,10 +13,10 @@ This project was built with the following:
 <br />
 
 ### How to use
--Fork and Clone
--Run npm install
--Run npm start
-Follow directions for backend https://github.com/rsissman15/phase-4-rails-project
+* Fork and Clone
+* Run npm install
+* Run npm start
+* Follow directions for backend https://github.com/rsissman15/phase-4-rails-project
 
 ### Licensing (MIT,Optional)
 Copyright <YEAR> <COPYRIGHT HOLDER>
