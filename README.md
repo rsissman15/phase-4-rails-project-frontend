@@ -1,5 +1,5 @@
 # Flex Phase 4 Build Frontend
-This is a frontend application for my activity application. The objective of this is to showcase what I did for Flatiron School.
+This is a frontend application for my activity application. The objective of this is to showcase what I did for Flatiron School. This application is a booking application for users to look up activities in the NYC area and reserve the activity for the date that they want. The user signs in to their account, can look at the details of an activity (a description and the price) and then book the reservation by using the calendar. Then the user can see their reservations that they made in the "reservation" tab. A user can also update the date or delete the reservation. 
 
 ### Requirments
 * node version 14.17.5
